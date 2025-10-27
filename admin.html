@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | PKL Nation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================================================
+           CSS Variables - Premium Design System
+           ========================================================================= */
+        :root {
+          --primary: #6366f1;
+          --primary-dark: #4f46e5;
+          --primary-light: #8b5cf6;
+          --accent-teal: #06b6d4;
+          --accent-emerald: #10b981;
+          --accent-amber: #f59e0b;
+          --accent-red: #ef4444;
+          --accent-purple: #8b5cf6;
+
+          /* Light Theme - Luxury Gradients */
+          --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          --bg-secondary: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+          --bg-card: rgba(255, 255, 255, 0.98);
+          --bg-glass: rgba(255, 255, 255, 0.25);
+          --bg-glass-dark: rgba(255, 255, 255, 0.1);
+
+          /* Text Colors */
+          --text-primary: #1e293b;
+          --text-secondary: #475569;
+          --text-muted: #64748b;
+          --text-inverse: #ffffff;
+
+          /* Effects */
+          --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+          --shadow-medium: 0 20px 40px rgba(0, 0, 0, 0.12);
+          --shadow-large: 0 32px 64px rgba(0, 0, 0, 0.16);
+          --shadow-extra: 0 48px 96px rgba(0, 0, 0, 0.20);
+
+          --border-light: rgba(255, 255, 255, 0.2);
+          --border-glass: rgba(255, 255, 255, 0.15);
+
+          /* Layout */
+          --radius-sm: 12px;
+          --radius-md: 20px;
+          --radius-lg: 28px;
+          --radius-xl: 36px;
+
+          --max-width: 1400px;
+          --font-size-base: 16px;
+        }
+
+        /* Premium Dark Theme */
+        [data-theme="dark"] {
+          --bg-primary: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+          --bg-secondary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+          --bg-card: rgba(30, 30, 46, 0.98);
+          --bg-glass: rgba(255, 255, 255, 0.1);
+          --bg-glass-dark: rgba(255, 255, 255, 0.05);
+
+          --text-primary: #f1f5f9;
+          --text-secondary: #e2e8f0;
+          --text-muted: #94a3b8;
+          --text-inverse: #ffffff;
+
+          --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.32);
+          --shadow-medium: 0 20px 40px rgba(0, 0, 0, 0.24);
+          --shadow-large: 0 32px 64px rgba(0, 0, 0, 0.28);
+          --shadow-extra: 0 48px 96px rgba(0, 0, 0, 0.32);
+        }
+
+        /* Theme Variations */
+        [data-color="teal"] {
+          --primary: #0d9488;
+          --primary-dark: #0f766e;
+          --primary-light: #14b8a6;
+        }
+
+        [data-color="purple"] {
+          --primary: #8b5cf6;
+          --primary-dark: #7c3aed;
+          --primary-light: #a78bfa;
+        }
+
+        [data-color="amber"] {
+          --primary: #f59e0b;
+          --primary-dark: #d97706;
+          --primary-light: #fbbf24;
+        }
+
+        /* =========================================================================
+           Base Styles
+           ========================================================================= */
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+          font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+          background: var(--bg-primary);
+          color: var(--text-primary);
+          line-height: 1.6;
+          overflow-x: hidden;
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+        }
+
+        /* Animated Background */
+        .background-animation {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -2;
+          overflow: hidden;
+        }
+
+        .floating-shape {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(60px);
+          opacity: 0.4;
+          animation: floatShape 20s infinite linear;
+        }
+
+        .shape-1 {
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, #ff6b6b, #ffa726);
+          top: 10%;
+          left: 10%;
+          animation-delay: 0s;
+        }
+
+        .shape-2 {
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, #4ecdc4, #44a08d);
+          top: 60%;
+          right: 10%;
+          animation-delay: -7s;
+        }
+
+        .shape-3 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, #45b7d1, #96c93d);
+          bottom: 20%;
+          left: 20%;
+          animation-delay: -14s;
+        }
+
+        @keyframes floatShape {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          25% { transform: translate(100px, -50px) rotate(90deg); }
+          50% { transform: translate(-50px, 100px) rotate(180deg); }
+          75% { transform: translate(-100px, -50px) rotate(270deg); }
+        }
+
+        /* =========================================================================
+           Admin Dashboard Specific Styles
+           ========================================================================= */
+        .admin-section {
+          min-height: 100vh;
+          padding: 120px 0 60px;
+          position: relative;
+        }
+
+        .admin-container {
+          max-width: var(--max-width);
+          margin: 0 auto;
+          padding: 0 24px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .admin-header {
+          text-align: center;
+          margin-bottom: 60px;
+        }
+
+        .admin-title {
+          font-size: 4.5rem;
+          font-weight: 800;
+          margin-bottom: 20px;
+          background: linear-gradient(135deg, #ffffff, #e2e8f0);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .admin-subtitle {
+          font-size: 1.375rem;
+          color: rgba(255, 255, 255, 0.9);
+          max-width: 600px;
+          margin: 0 auto;
+          line-height: 1.6;
+        }
+
+        /* Stats Overview - Fixed Alignment */
+        .stats-overview {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
+          margin-bottom: 60px;
+          align-items: stretch;
+        }
+
+        .stat-card {
+          background: var(--bg-card);
+          padding: 40px 32px;
+          border-radius: var(--radius-lg);
+          text-align: center;
+          border: 1px solid var(--border-glass);
+          box-shadow: var(--shadow-soft);
+          transition: all 0.4s ease;
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 200px;
+        }
+
+        .stat-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, var(--primary), transparent);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+
+        .stat-card:hover::before {
+          opacity: 0.08;
+        }
+
+        .stat-card:hover {
+          transform: translateY(-8px);
+          box-shadow: var(--shadow-large);
+        }
+
+        .stat-number {
+          font-size: 3rem;
+          font-weight: 800;
+          margin-bottom: 12px;
+          display: block;
+          line-height: 1;
+          transition: all 0.3s ease;
+        }
+
+        .stat-label {
+          color: var(--text-muted);
+          font-weight: 600;
+          font-size: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 8px;
+        }
+
+        .stat-subtitle {
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          font-weight: 500;
+        }
+
+        /* Tabs Navigation - Fixed Alignment */
+        .tabs-navigation {
+          display: flex;
+          gap: 8px;
+          background: var(--bg-glass);
+          padding: 8px;
+          border-radius: var(--radius-lg);
+          margin-bottom: 32px;
+          backdrop-filter: blur(20px);
+          border: 1px solid var(--border-glass);
+          flex-wrap: wrap;
+        }
+
+        .tab-btn {
+          flex: 1;
+          min-width: 200px;
+          padding: 16px 24px;
+          border: none;
+          background: transparent;
+          color: var(--text-muted);
+          font-weight: 600;
+          font-size: 1.125rem;
+          border-radius: var(--radius-md);
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          text-align: center;
+        }
+
+        .tab-btn.active {
+          background: var(--primary);
+          color: white;
+          box-shadow: var(--shadow-soft);
+        }
+
+        .tab-btn:hover:not(.active) {
+          background: var(--bg-glass-dark);
+          color: var(--text-primary);
+        }
+
+        /* Content Sections */
+        .content-section {
+          display: none;
+          animation: fadeIn 0.5s ease-out;
+        }
+
+        .content-section.active {
+          display: block;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Filter Section - Fixed Alignment */
+        .filter-section {
+          background: var(--bg-card);
+          padding: 24px;
+          border-radius: var(--radius-xl);
+          margin-bottom: 32px;
+          backdrop-filter: blur(40px);
+          border: 1px solid var(--border-glass);
+          box-shadow: var(--shadow-soft);
+        }
+
+        .filter-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+          align-items: end;
+        }
+
+        .filter-group {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .filter-label {
+          font-weight: 600;
+          color: var(--text-primary);
+          font-size: 1rem;
+          margin-bottom: 4px;
+        }
+
+        .filter-input {
+          width: 100%;
+          padding: 12px 16px;
+          border-radius: var(--radius-lg);
+          border: 1px solid var(--border-glass);
+          background: var(--bg-card);
+          color: var(--text-primary);
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .filter-input:focus {
+          outline: none;
+          border-color: var(--primary);
+          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .filter-actions {
+          display: flex;
+          gap: 12px;
+          align-items: end;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          padding: 12px 24px;
+          border: none;
+          border-radius: var(--radius-lg);
+          font-weight: 600;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          min-height: 48px;
+        }
+
+        .btn-primary {
+          background: var(--primary);
+          color: white;
+        }
+
+        .btn-primary:hover {
+          background: var(--primary-dark);
+          transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+          background: var(--bg-glass);
+          color: var(--text-primary);
+          border: 1px solid var(--border-glass);
+        }
+
+        .btn-secondary:hover {
+          background: var(--bg-glass-dark);
+          transform: translateY(-2px);
+        }
+
+        /* Data Sections */
+        .data-section {
+          background: var(--bg-card);
+          border-radius: var(--radius-xl);
+          overflow: hidden;
+          box-shadow: var(--shadow-medium);
+          border: 1px solid var(--border-glass);
+          position: relative;
+        }
+
+        .data-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, var(--primary), var(--primary-light));
+          transform: scaleX(0);
+          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .data-section:hover::before {
+          transform: scaleX(1);
+        }
+
+        .section-header {
+          background: linear-gradient(135deg, var(--primary), var(--primary-light));
+          color: white;
+          padding: 24px 32px;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        /* Table Styles - Fixed Alignment */
+        .table-container {
+          max-height: 500px;
+          overflow-y: auto;
+          width: 100%;
+        }
+
+        .data-table {
+          width: 100%;
+          border-collapse: collapse;
+          table-layout: fixed;
+        }
+
+        .data-table th {
+          background: var(--bg-glass);
+          color: var(--text-primary);
+          padding: 16px 20px;
+          text-align: left;
+          font-weight: 600;
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          position: sticky;
+          top: 0;
+          border-bottom: 1px solid var(--border-glass);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .data-table td {
+          padding: 16px 20px;
+          border-bottom: 1px solid var(--border-glass);
+          color: var(--text-primary);
+          vertical-align: middle;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        /* Fixed column widths for better alignment */
+        .data-table th:nth-child(1),
+        .data-table td:nth-child(1) { width: 15%; } /* Nama */
+        .data-table th:nth-child(2),
+        .data-table td:nth-child(2) { width: 15%; } /* Sekolah/Keterangan */
+        .data-table th:nth-child(3),
+        .data-table td:nth-child(3) { width: 12%; } /* Tanggal/Jenis File */
+        .data-table th:nth-child(4),
+        .data-table td:nth-child(4) { width: 12%; } /* Status/File */
+        .data-table th:nth-child(5),
+        .data-table td:nth-child(5) { width: 12%; } /* Waktu/Preview */
+        .data-table th:nth-child(6),
+        .data-table td:nth-child(6) { width: 16%; } /* Aksi */
+        .data-table th:nth-child(7),
+        .data-table td:nth-child(7) { width: 18%; } /* Waktu (Dokumentasi) */
+
+        .data-table tr:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Status Badges */
+        .status-badge {
+          padding: 6px 12px;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          display: inline-block;
+          text-align: center;
+          min-width: 70px;
+        }
+
+        .status-hadir { background: #dcfce7; color: #166534; }
+        .status-izin { background: #fef3c7; color: #92400e; }
+        .status-sakit { background: #dbeafe; color: #1e40af; }
+        .status-alpha { background: #fee2e2; color: #991b1b; }
+
+        /* File Type Badges */
+        .file-type-badge {
+          padding: 6px 12px;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          display: inline-block;
+          text-align: center;
+          min-width: 70px;
+        }
+
+        .file-pdf { background: #fee2e2; color: #dc2626; }
+        .file-doc { background: #dbeafe; color: #1d4ed8; }
+        .file-image { background: #dcfce7; color: #166534; }
+        .file-other { background: #f3e8ff; color: #7c3aed; }
+
+        /* File Attachment Links */
+        .attachment-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          background: var(--bg-glass);
+          color: var(--text-primary);
+          text-decoration: none;
+          border-radius: var(--radius-lg);
+          font-size: 0.75rem;
+          font-weight: 600;
+          border: 1px solid var(--border-glass);
+          transition: all 0.3s ease;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          cursor: pointer;
+          min-height: 40px;
+        }
+
+        .attachment-link:hover {
+          background: var(--primary);
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-soft);
+        }
+
+        .file-icon {
+          font-size: 1rem;
+          flex-shrink: 0;
+        }
+
+        .file-name {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          flex: 1;
+        }
+
+        /* File type specific colors */
+        .attachment-link.image { border-left: 4px solid #10b981; }
+        .attachment-link.pdf { border-left: 4px solid #dc2626; }
+        .attachment-link.doc { border-left: 4px solid #1d4ed8; }
+        .attachment-link.other { border-left: 4px solid #8b5cf6; }
+
+        /* Image Preview */
+        .image-preview {
+          width: 80px;
+          height: 80px;
+          border-radius: var(--radius-sm);
+          object-fit: cover;
+          border: 2px solid var(--border-glass);
+          transition: all 0.3s ease;
+          cursor: pointer;
+          display: block;
+          margin: 0 auto;
+        }
+
+        .image-preview:hover {
+          transform: scale(1.1);
+          box-shadow: var(--shadow-medium);
+        }
+
+        /* Action Buttons - Fixed Alignment */
+        .action-buttons {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .action-btn {
+          padding: 8px 16px;
+          border: none;
+          border-radius: var(--radius-lg);
+          font-size: 0.75rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          min-height: 36px;
+          text-decoration: none;
+          white-space: nowrap;
+        }
+
+        .action-btn.view {
+          background: var(--accent-teal);
+          color: white;
+        }
+
+        .action-btn.download {
+          background: var(--primary);
+          color: white;
+        }
+
+        .action-btn.delete {
+          background: var(--accent-red);
+          color: white;
+        }
+
+        .action-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-soft);
+        }
+
+        /* Loading State */
+        .loading-row td {
+          text-align: center;
+          padding: 40px;
+          color: var(--text-muted);
+        }
+
+        .loading-dots {
+          display: inline-block;
+          animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        /* Empty State */
+        .empty-state {
+          text-align: center;
+          padding: 60px 40px;
+          color: var(--text-muted);
+        }
+
+        .empty-icon {
+          font-size: 3rem;
+          margin-bottom: 16px;
+        }
+
+        .empty-text {
+          font-size: 1.125rem;
+          margin-bottom: 8px;
+        }
+
+        .empty-subtext {
+          font-size: 0.875rem;
+          opacity: 0.7;
+        }
+
+        /* Real-time Indicator */
+        .realtime-indicator {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: var(--accent-emerald);
+          color: white;
+          padding: 12px 24px;
+          border-radius: var(--radius-xl);
+          font-size: 0.875rem;
+          font-weight: 600;
+          margin-bottom: 20px;
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .realtime-indicator::after {
+          content: '';
+          width: 8px;
+          height: 8px;
+          background: white;
+          border-radius: 50%;
+          animation: pulse 2s infinite;
+        }
+
+        /* Back Button */
+        .back-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          color: white;
+          text-decoration: none;
+          font-weight: 600;
+          margin-top: 40px;
+          padding: 16px 32px;
+          border-radius: var(--radius-xl);
+          background: var(--bg-glass);
+          backdrop-filter: blur(40px);
+          border: 1px solid var(--border-glass);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-link:hover {
+          transform: translateX(-8px);
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: var(--shadow-medium);
+        }
+
+        /* Modal Styles */
+        .modal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.8);
+          z-index: 10000;
+          backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: var(--bg-card);
+          border-radius: var(--radius-xl);
+          padding: 0;
+          max-width: 90vw;
+          max-height: 90vh;
+          box-shadow: var(--shadow-extra);
+          border: 1px solid var(--border-glass);
+        }
+
+        .modal-header {
+          padding: 24px;
+          border-bottom: 1px solid var(--border-glass);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .modal-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          margin: 0;
+        }
+
+        .modal-close {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          color: var(--text-muted);
+          cursor: pointer;
+          padding: 8px;
+          border-radius: var(--radius-md);
+        }
+
+        .modal-close:hover {
+          background: var(--bg-glass);
+          color: var(--text-primary);
+        }
+
+        .modal-body {
+          padding: 24px;
+          max-height: 70vh;
+          overflow-y: auto;
+        }
+
+        .photo-full {
+          max-width: 100%;
+          max-height: 500px;
+          border-radius: var(--radius-lg);
+          margin-bottom: 20px;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .photo-details {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 16px;
+        }
+
+        .detail-item {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .detail-label {
+          font-weight: 600;
+          color: var(--text-primary);
+          font-size: 0.875rem;
+        }
+
+        .detail-value {
+          color: var(--text-secondary);
+          font-size: 1rem;
+        }
+
+        /* =========================================================================
+           Settings Panel
+           ========================================================================= */
+        #settingsPanel {
+          position: fixed;
+          right: 40px;
+          bottom: 40px;
+          z-index: 1000;
+          width: 72px;
+          height: 72px;
+          border-radius: var(--radius-xl);
+          background: var(--bg-card);
+          box-shadow: var(--shadow-extra);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          border: 1px solid var(--border-glass);
+          backdrop-filter: blur(40px);
+          font-size: 1.5rem;
+        }
+
+        #settingsPanel:hover {
+          transform: scale(1.15) rotate(15deg);
+        }
+
+        #settingsPanel.open {
+          width: 420px;
+          height: auto;
+          padding: 40px;
+          border-radius: var(--radius-xl);
+          transform: none;
+        }
+
+        #settingsPanel.open:hover {
+          transform: none;
+        }
+
+        #settingsPanel .panel-inner {
+          display: none;
+          width: 100%;
+        }
+
+        #settingsPanel.open .panel-inner {
+          display: block;
+        }
+
+        .setting-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 28px;
+          padding-bottom: 24px;
+          border-bottom: 1px solid var(--border-glass);
+        }
+
+        .setting-row:last-child {
+          border-bottom: none;
+          margin-bottom: 0;
+        }
+
+        .setting-label {
+          flex: 1;
+        }
+
+        .setting-label strong {
+          display: block;
+          margin-bottom: 6px;
+          color: var(--text-primary);
+          font-size: 1rem;
+        }
+
+        .setting-label span {
+          font-size: 0.875rem;
+          color: var(--text-muted);
+        }
+
+        /* Toggle Switch */
+        .switch {
+          width: 68px;
+          height: 36px;
+          background: var(--border-glass);
+          border-radius: 999px;
+          position: relative;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border: 1px solid var(--border-glass);
+        }
+
+        .switch.on {
+          background: var(--primary);
+        }
+
+        .switch .knob {
+          width: 30px;
+          height: 30px;
+          background: white;
+          border-radius: 50%;
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: var(--shadow-soft);
+        }
+
+        .switch.on .knob {
+          left: 34px;
+        }
+
+        /* Color Swatches */
+        .color-swatches {
+          display: flex;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+
+        .color-swatch {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          cursor: pointer;
+          border: 3px solid transparent;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: var(--shadow-medium);
+        }
+
+        .color-swatch.active {
+          border-color: var(--text-primary);
+          transform: scale(1.2);
+        }
+
+        .color-swatch:hover {
+          transform: scale(1.15);
+        }
+
+        /* Font Size Buttons */
+        .font-sizes {
+          display: flex;
+          gap: 12px;
+          background: var(--border-glass);
+          border-radius: var(--radius-xl);
+          padding: 8px;
+          border: 1px solid var(--border-glass);
+        }
+
+        .font-btn {
+          padding: 12px 20px;
+          border: none;
+          background: transparent;
+          color: var(--text-muted);
+          cursor: pointer;
+          border-radius: var(--radius-lg);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          flex: 1;
+          font-weight: 600;
+          font-size: 1.125rem;
+        }
+
+        .font-btn.active {
+          background: var(--primary);
+          color: white;
+          box-shadow: var(--shadow-soft);
+        }
+
+        /* =========================================================================
+           Particles System
+           ========================================================================= */
+        #particles {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          pointer-events: none;
+        }
+
+        .particle {
+          position: absolute;
+          border-radius: 50%;
+          background: radial-gradient(circle, var(--primary), transparent);
+          opacity: 0.6;
+          animation: floatParticle 15s infinite linear;
+          filter: blur(1px);
+        }
+
+        @keyframes floatParticle {
+          0% {
+            transform: translateY(100vh) rotate(0deg) scale(0.5);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.6;
+          }
+          90% {
+            opacity: 0.6;
+          }
+          100% {
+            transform: translateY(-100px) rotate(360deg) scale(1);
+            opacity: 0;
+          }
+        }
+
+        /* =========================================================================
+           Responsive Design
+           ========================================================================= */
+        @media (max-width: 768px) {
+          .admin-container {
+            padding: 0 20px;
+          }
+
+          .admin-title {
+            font-size: 3rem;
+          }
+
+          .admin-subtitle {
+            font-size: 1.125rem;
+          }
+
+          .stats-overview {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+
+          .tabs-navigation {
+            flex-direction: column;
+          }
+
+          .tab-btn {
+            min-width: 100%;
+          }
+
+          .filter-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .filter-actions {
+            justify-content: stretch;
+          }
+
+          .btn {
+            flex: 1;
+            justify-content: center;
+          }
+
+          .data-table {
+            display: block;
+            overflow-x: auto;
+          }
+
+          .action-buttons {
+            flex-direction: column;
+            width: 100%;
+          }
+
+          .action-btn {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .stat-number {
+            font-size: 2.5rem;
+          }
+
+          /* Adjust table column widths for mobile */
+          .data-table th,
+          .data-table td {
+            width: auto !important;
+            min-width: 120px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .stats-overview {
+            grid-template-columns: 1fr;
+          }
+
+          .admin-title {
+            font-size: 2.5rem;
+          }
+
+          .data-table th,
+          .data-table td {
+            padding: 12px 8px;
+            font-size: 0.75rem;
+          }
+
+          .section-header {
+            padding: 20px;
+          }
+
+          .section-title {
+            font-size: 1.25rem;
+          }
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .admin-section {
+            padding: 100px 0 40px;
+          }
+
+          .admin-container {
+            padding: 0 16px;
+          }
+
+          .admin-title {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+          }
+
+          .admin-subtitle {
+            font-size: 1.125rem;
+            padding: 0 10px;
+          }
+
+          /* Stats Overview - Stack on mobile */
+          .stats-overview {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+          }
+
+          .stat-card {
+            padding: 24px 20px;
+            min-height: 160px;
+          }
+
+          .stat-number {
+            font-size: 2.25rem;
+          }
+
+          /* Tabs Navigation - Stack vertically */
+          .tabs-navigation {
+            flex-direction: column;
+          }
+
+          /* Content Sections */
+          .content-section {
+            margin-bottom: 30px;
+          }
+
+          /* Table Responsive */
+          .table-container {
+            max-height: 400px;
+            overflow-x: auto;
+          }
+
+          .data-table {
+            min-width: 600px;
+          }
+
+          .data-table th,
+          .data-table td {
+            padding: 12px 8px;
+            font-size: 0.75rem;
+          }
+
+          /* Section Headers */
+          .section-header {
+            padding: 20px 24px;
+          }
+
+          .section-title {
+            font-size: 1.25rem;
+          }
+
+          /* Status Badges - Smaller on mobile */
+          .status-badge {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            min-width: 60px;
+          }
+
+          /* File Type Badges - Smaller on mobile */
+          .file-type-badge {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            min-width: 60px;
+          }
+
+          /* Attachment Links - Smaller on mobile */
+          .attachment-link {
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            min-height: 36px;
+          }
+
+          /* Image Preview - Smaller on mobile */
+          .image-preview {
+            width: 60px;
+            height: 60px;
+          }
+
+          /* Action Buttons - Stack on mobile */
+          .action-buttons {
+            flex-direction: column;
+            gap: 4px;
+          }
+
+          .action-btn {
+            padding: 6px 10px;
+            font-size: 0.7rem;
+            min-height: 32px;
+          }
+
+          /* Real-time Indicator */
+          .realtime-indicator {
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            margin-bottom: 16px;
+          }
+
+          /* Back Link */
+          .back-link {
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            margin-top: 30px;
+          }
+
+          /* Settings Panel - Full width on mobile */
+          #settingsPanel {
+            right: 20px;
+            bottom: 20px;
+            width: 60px;
+            height: 60px;
+          }
+
+          #settingsPanel.open {
+            width: 90vw;
+            max-width: 350px;
+            right: 5vw;
+            bottom: 5vh;
+          }
+
+          /* Modal adjustments for mobile */
+          .modal-content {
+            width: 95vw;
+            max-height: 85vh;
+          }
+
+          .photo-details {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .admin-title {
+            font-size: 2rem;
+          }
+
+          .admin-subtitle {
+            font-size: 1rem;
+          }
+
+          .stat-number {
+            font-size: 2rem;
+          }
+
+          .section-title {
+            font-size: 1.125rem;
+          }
+
+          .data-table th,
+          .data-table td {
+            padding: 10px 6px;
+            font-size: 0.7rem;
+          }
+
+          /* Hide less important columns on very small screens */
+          .data-table th:nth-child(n+4),
+          .data-table td:nth-child(n+4) {
+            display: none;
+          }
+        }
+
+        /* Message Animations */
+        @keyframes slideIn {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Mobile Touch Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+          .stat-card:hover {
+            transform: none;
+          }
+
+          .data-section:hover::before {
+            transform: scaleX(0);
+          }
+
+          .attachment-link:hover,
+          .action-btn:hover,
+          .back-link:hover {
+            transform: none;
+          }
+
+          .image-preview:hover {
+            transform: none;
+          }
+
+          /* Better touch targets for mobile */
+          .action-btn,
+          .tab-btn,
+          .attachment-link {
+            min-height: 44px;
+            min-width: 44px;
+          }
+        }
+
+        /* Enhanced Mobile Features */
+        .mobile-optimized .table-container {
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .mobile-optimized .stat-card {
+          transition: none;
+        }
+
+        /* Print Styles */
+        @media print {
+          .background-animation,
+          #settingsPanel,
+          .back-link,
+          .realtime-indicator {
+            display: none !important;
+          }
+
+          .admin-section {
+            padding: 20px 0;
+            background: white !important;
+          }
+
+          .stat-card {
+            break-inside: avoid;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+          }
+
+          .data-table {
+            break-inside: avoid;
+          }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+
+    <!-- Particles Container -->
+    <div id="particles" aria-hidden="true"></div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" role="dialog" aria-label="Settings" aria-expanded="false">
+      <div id="settingsIcon" aria-hidden="true">⚙️</div>
+      <div class="panel-inner">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+          <h3 style="margin: 0; color: var(--text-primary); font-size: 1.5rem;">Theme Settings</h3>
+          <button id="settingsCloseBtn" aria-label="Close settings" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); padding: 8px;">✕</button>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <strong>Dark Mode</strong>
+            <span>Switch between light and dark themes</span>
+          </div>
+          <div id="darkSwitch" class="switch" role="switch" aria-checked="false" tabindex="0">
+            <div class="knob"></div>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <strong>Font Size</strong>
+            <span>Adjust text size for readability</span>
+          </div>
+          <div class="font-sizes" role="tablist">
+            <button class="font-btn active" data-size="small" role="tab" aria-selected="true">A-</button>
+            <button class="font-btn" data-size="medium" role="tab" aria-selected="false">A</button>
+            <button class="font-btn" data-size="large" role="tab" aria-selected="false">A+</button>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <strong>Theme Color</strong>
+            <span>Choose your accent color</span>
+          </div>
+          <div class="color-swatches" role="listbox">
+            <button class="color-swatch active" data-color="blue" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);" aria-label="Blue theme" role="option" aria-selected="true"></button>
+            <button class="color-swatch" data-color="teal" style="background: linear-gradient(135deg, #0d9488, #14b8a6);" aria-label="Teal theme" role="option" aria-selected="false"></button>
+            <button class="color-swatch" data-color="purple" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);" aria-label="Purple theme" role="option" aria-selected="false"></button>
+            <button class="color-swatch" data-color="amber" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);" aria-label="Amber theme" role="option" aria-selected="false"></button>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-glass);">
+          <small style="color: var(--text-muted); font-size: 0.875rem;">Settings are saved automatically in your browser</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="admin-section">
+      <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+          <h1 class="admin-title">👑 Admin Dashboard</h1>
+          <p class="admin-subtitle">
+            Monitor semua data absensi dan dokumentasi PKL secara real-time dengan interface premium
+          </p>
+
+          <!-- Real-time Indicator -->
+          <div class="realtime-indicator">
+            <span>🟢</span>
+            LIVE - Data update real-time dari Firebase & Cloudinary
+          </div>
+        </div>
+
+        <!-- Stats Overview - Only 3 Cards Now -->
+        <div class="stats-overview">
+          <div class="stat-card">
+            <span class="stat-number" id="totalAbsensi">0</span>
+            <div class="stat-label">Total Absensi</div>
+            <div class="stat-subtitle">Semua catatan kehadiran</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="totalDokumentasi">0</span>
+            <div class="stat-label">Total Dokumentasi</div>
+            <div class="stat-subtitle">File yang diupload</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="totalUsers">0</span>
+            <div class="stat-label">Siswa Terdaftar</div>
+            <div class="stat-subtitle">Pengguna aktif</div>
+          </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-navigation">
+          <button class="tab-btn active" data-tab="absensi">
+            <span>📊</span>
+            Data Absensi
+          </button>
+          <button class="tab-btn" data-tab="dokumentasi">
+            <span>📁</span>
+            Data Dokumentasi
+          </button>
+        </div>
+
+        <!-- Absensi Tab -->
+        <div class="content-section active" id="absensi-section">
+          <!-- Filter Section -->
+          <div class="filter-section">
+            <div class="filter-grid">
+              <div class="filter-group">
+                <label class="filter-label">Cari Nama</label>
+                <input type="text" id="searchAbsensi" class="filter-input" placeholder="Masukkan nama siswa...">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">Filter Status</label>
+                <select id="filterStatus" class="filter-input">
+                  <option value="">Semua Status</option>
+                  <option value="hadir">Hadir</option>
+                  <option value="izin">Izin</option>
+                  <option value="sakit">Sakit</option>
+                  <option value="alpha">Alpha</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">Filter Tanggal</label>
+                <input type="date" id="filterTanggal" class="filter-input">
+              </div>
+              <div class="filter-actions">
+                <button class="btn btn-primary" id="applyAbsensiFilters">
+                  <span>🔍</span>
+                  Terapkan Filter
+                </button>
+                <button class="btn btn-secondary" id="resetAbsensiFilters">
+                  <span>🔄</span>
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Absensi Table -->
+          <div class="data-section">
+            <div class="section-header">
+              <h2 class="section-title">
+                <span>📊</span>
+                Data Absensi
+              </h2>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Sekolah</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                    <th>Waktu</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="absensiTableBody">
+                  <tr class="loading-row">
+                    <td colspan="6">
+                      <div class="loading-dots">Memuat data absensi...</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dokumentasi Tab -->
+        <div class="content-section" id="dokumentasi-section">
+          <!-- Filter Section -->
+          <div class="filter-section">
+            <div class="filter-grid">
+              <div class="filter-group">
+                <label class="filter-label">Cari Nama</label>
+                <input type="text" id="searchDokumentasi" class="filter-input" placeholder="Masukkan nama...">
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">Filter Keterangan</label>
+                <select id="filterKeterangan" class="filter-input">
+                  <option value="">Semua Keterangan</option>
+                  <option value="Kegiatan Harian">Kegiatan Harian</option>
+                  <option value="Presentasi">Presentasi</option>
+                  <option value="Sertifikat">Sertifikat</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">Filter Jenis File</label>
+                <select id="filterJenisFile" class="filter-input">
+                  <option value="">Semua Jenis</option>
+                  <option value="image">Gambar</option>
+                  <option value="pdf">PDF</option>
+                  <option value="doc">Dokumen</option>
+                  <option value="other">Lainnya</option>
+                </select>
+              </div>
+              <div class="filter-actions">
+                <button class="btn btn-primary" id="applyDokumentasiFilters">
+                  <span>🔍</span>
+                  Terapkan Filter
+                </button>
+                <button class="btn btn-secondary" id="resetDokumentasiFilters">
+                  <span>🔄</span>
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dokumentasi Table -->
+          <div class="data-section">
+            <div class="section-header">
+              <h2 class="section-title">
+                <span>📁</span>
+                Data Dokumentasi
+              </h2>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Keterangan</th>
+                    <th>Jenis File</th>
+                    <th>File</th>
+                    <th>Preview</th>
+                    <th>Aksi</th>
+                    <th>Waktu</th>
+                  </tr>
+                </thead>
+                <tbody id="dokumentasiTableBody">
+                  <tr class="loading-row">
+                    <td colspan="7">
+                      <div class="loading-dots">Memuat data dokumentasi...</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Home -->
+        <a href="/" class="back-link">
+          <span>←</span>
+          Kembali ke Beranda
+        </a>
+      </div>
+    </section>
+
+    <!-- Photo Modal -->
+    <div class="modal" id="photoModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Detail Foto</h3>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Modal content will be populated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAZ2Nnh3k8Y4qwOwS5FBOuVS17puke1n7A",
+          authDomain: "pkl-nation.firebaseapp.com",
+          databaseURL: "https://pkl-nation-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "pkl-nation",
+          storageBucket: "pkl-nation.appspot.com",
+          messagingSenderId: "138116516043",
+          appId: "1:138116516043:web:b7c90716e0f2bfdfef34e"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Settings Management
+        const SETTINGS_KEY = 'pkl_nation_premium_settings';
+        const defaultSettings = {
+          dark: false,
+          fontSize: 'medium',
+          themeColor: 'blue'
+        };
+
+        function loadSettings() {
+          try {
+            const saved = localStorage.getItem(SETTINGS_KEY);
+            return saved ? { ...defaultSettings, ...JSON.parse(saved) } : { ...defaultSettings };
+          } catch {
+            return { ...defaultSettings };
+          }
+        }
+
+        function saveSettings(settings) {
+          localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        }
+
+        function applySettings(settings) {
+          document.documentElement.setAttribute('data-theme', settings.dark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-color', settings.themeColor);
+          document.documentElement.style.fontSize = {
+            small: '14px',
+            medium: '16px',
+            large: '18px'
+          }[settings.fontSize] || '16px';
+          updateSettingsUI(settings);
+          createParticles();
+        }
+
+        function updateSettingsUI(settings) {
+          const darkSwitch = document.getElementById('darkSwitch');
+          if (darkSwitch) {
+            darkSwitch.classList.toggle('on', settings.dark);
+            darkSwitch.setAttribute('aria-checked', settings.dark.toString());
+          }
+
+          document.querySelectorAll('.font-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.size === settings.fontSize);
+            btn.setAttribute('aria-selected', btn.dataset.size === settings.fontSize);
+          });
+
+          document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.classList.toggle('active', swatch.dataset.color === settings.themeColor);
+            swatch.setAttribute('aria-selected', swatch.dataset.color === settings.themeColor);
+          });
+        }
+
+        // Particles System
+        function createParticles() {
+          const container = document.getElementById('particles');
+          if (!container) return;
+
+          container.innerHTML = '';
+          const particleCount = Math.min(25, Math.floor(window.innerWidth / 40));
+          const currentSettings = loadSettings();
+          const isDark = currentSettings.dark;
+
+          for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 25 + 5;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 20;
+            const duration = Math.random() * 10 + 20;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}vw`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+
+            const hue = currentSettings.themeColor === 'blue' ? 240 :
+                        currentSettings.themeColor === 'teal' ? 180 :
+                        currentSettings.themeColor === 'purple' ? 270 : 45;
+            const saturation = isDark ? '40%' : '60%';
+            const lightness = isDark ? '50%' : '60%';
+            particle.style.background = `radial-gradient(circle, hsl(${hue}, ${saturation}, ${lightness}), transparent)`;
+
+            container.appendChild(particle);
+          }
+        }
+
+        // Admin Dashboard Real-time Data
+        let allAbsensiData = [];
+        let allDokumentasiData = [];
+        let uniqueUsers = new Set();
+
+        // Filter states
+        let currentFilters = {
+          absensi: { name: '', status: '', date: '' },
+          dokumentasi: { name: '', keterangan: '', jenisFile: '' }
+        };
+
+        // Helper functions
+        function getFileType(filename) {
+            if (!filename) return 'other';
+            const ext = filename.split('.').pop().toLowerCase();
+            if (['pdf'].includes(ext)) return 'pdf';
+            if (['doc', 'docx'].includes(ext)) return 'doc';
+            if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'].includes(ext)) return 'image';
+            if (['mp4', 'avi', 'mov', 'wmv', 'mkv'].includes(ext)) return 'video';
+            return 'other';
+        }
+
+        function getFileIcon(filename) {
+            const fileType = getFileType(filename);
+            const icons = {
+                'pdf': '📄',
+                'doc': '📝',
+                'image': '🖼️',
+                'video': '🎬',
+                'other': '📁'
+            };
+            return icons[fileType] || icons['other'];
+        }
+
+        function getFileTypeClass(filename) {
+            const fileType = getFileType(filename);
+            return `file-${fileType}`;
+        }
+
+        function formatNumber(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function isCloudinaryUrl(url) {
+            return url && url.includes('cloudinary.com');
+        }
+
+        function getCloudinaryImageUrl(url, width = 80, height = 80) {
+            if (!isCloudinaryUrl(url)) return url;
+            return url.replace('/upload/', `/upload/w_${width},h_${height},c_fill/`);
+        }
+
+        // Remove dokumentasi function
+        async function removeDokumentasi(docId, fileName) {
+            if (!confirm('Apakah Anda yakin ingin menghapus dokumentasi ini?')) {
+                return;
+            }
+
+            try {
+                await database.ref('dokumentasi/' + docId).remove();
+                showMessage('✅ Dokumentasi berhasil dihapus!', 'success');
+            } catch (error) {
+                showMessage('❌ Gagal menghapus dokumentasi: ' + error.message, 'error');
+            }
+        }
+
+        // Remove absensi function
+        async function removeAbsensi(absensiId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus data absensi ini?')) {
+                return;
+            }
+
+            try {
+                await database.ref('absensi/' + absensiId).remove();
+                showMessage('✅ Data absensi berhasil dihapus!', 'success');
+            } catch (error) {
+                showMessage('❌ Gagal menghapus data absensi: ' + error.message, 'error');
+            }
+        }
+
+        // Open photo modal
+        function openPhotoModal(photoUrl, name, keterangan) {
+            const modal = document.getElementById('photoModal');
+            const modalBody = document.getElementById('modalBody');
+
+            modalBody.innerHTML = `
+                <img src="${photoUrl}" alt="${name}" class="photo-full">
+                <div class="photo-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Nama</span>
+                        <span class="detail-value">${name || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Keterangan</span>
+                        <span class="detail-value">${keterangan || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">URL Foto</span>
+                        <span class="detail-value" style="word-break: break-all; font-size: 0.875rem;">
+                            ${photoUrl}
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            modal.style.display = 'block';
+        }
+
+        // Load Absensi Data
+        function loadAbsensiData() {
+            database.ref('absensi').on('value', (snapshot) => {
+                const absensiData = snapshot.val();
+                allAbsensiData = [];
+
+                if (!absensiData) {
+                    document.getElementById('absensiTableBody').innerHTML = `
+                        <tr>
+                            <td colspan="6" class="empty-state">
+                                <div class="empty-icon">📝</div>
+                                <div class="empty-text">Belum ada data absensi</div>
+                                <div class="empty-subtext">Data absensi akan muncul di sini</div>
+                            </td>
+                        </tr>
+                    `;
+                    document.getElementById('totalAbsensi').textContent = '0';
+                    document.getElementById('totalUsers').textContent = '0';
+                    return;
+                }
+
+                allAbsensiData = Object.entries(absensiData)
+                    .map(([key, value]) => ({
+                        id: key,
+                        ...value
+                    }))
+                    .sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+
+                document.getElementById('totalAbsensi').textContent = formatNumber(allAbsensiData.length);
+
+                uniqueUsers = new Set();
+                allAbsensiData.forEach(entry => {
+                    if (entry.nama) {
+                        uniqueUsers.add(entry.nama.toLowerCase().trim());
+                    }
+                });
+                document.getElementById('totalUsers').textContent = formatNumber(uniqueUsers.size);
+
+                renderAbsensiTable();
+            });
+        }
+
+        // Render Absensi Table
+        function renderAbsensiTable() {
+            const absensiTableBody = document.getElementById('absensiTableBody');
+            const filteredData = filterAbsensiData();
+
+            if (filteredData.length === 0) {
+                absensiTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <div class="empty-icon">🔍</div>
+                            <div class="empty-text">Tidak ada data yang cocok</div>
+                            <div class="empty-subtext">Coba ubah filter pencarian Anda</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            absensiTableBody.innerHTML = filteredData.map(item => `
+                <tr>
+                    <td><strong>${item.nama || '-'}</strong></td>
+                    <td>${item.sekolah || '-'}</td>
+                    <td>${item.tanggal || '-'}</td>
+                    <td>
+                        <span class="status-badge status-${(item.status || '').toLowerCase()}">
+                            ${item.status || '-'}
+                        </span>
+                    </td>
+                    <td>${item.timestamp || '-'}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn delete" onclick="removeAbsensi('${item.id}')">
+                                🗑️ Hapus
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter Absensi Data
+        function filterAbsensiData() {
+            const { name, status, date } = currentFilters.absensi;
+
+            return allAbsensiData.filter(item => {
+                const matchesName = !name || (item.nama && item.nama.toLowerCase().includes(name.toLowerCase()));
+                const matchesStatus = !status || item.status === status;
+                const matchesDate = !date || item.tanggal === date;
+
+                return matchesName && matchesStatus && matchesDate;
+            });
+        }
+
+        // Load Dokumentasi Data - CLEANED VERSION
+        function loadDokumentasiData() {
+            database.ref('dokumentasi').on('value', (snapshot) => {
+                const dokumentasiData = snapshot.val();
+                allDokumentasiData = [];
+
+                if (!dokumentasiData) {
+                    document.getElementById('dokumentasiTableBody').innerHTML = `
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                <div class="empty-icon">📁</div>
+                                <div class="empty-text">Belum ada data dokumentasi</div>
+                                <div class="empty-subtext">Upload dokumentasi untuk melihatnya di sini</div>
+                            </td>
+                        </tr>
+                    `;
+                    document.getElementById('totalDokumentasi').textContent = '0';
+                    return;
+                }
+
+                allDokumentasiData = Object.entries(dokumentasiData)
+                    .map(([key, value]) => ({
+                        id: key,
+                        ...value
+                    }))
+                    .sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+
+                document.getElementById('totalDokumentasi').textContent = formatNumber(allDokumentasiData.length);
+
+                renderDokumentasiTable();
+            });
+        }
+
+        // Render Dokumentasi Table
+        function renderDokumentasiTable() {
+            const dokumentasiTableBody = document.getElementById('dokumentasiTableBody');
+            const filteredData = filterDokumentasiData();
+
+            if (filteredData.length === 0) {
+                dokumentasiTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <div class="empty-icon">🔍</div>
+                            <div class="empty-text">Tidak ada data yang cocok</div>
+                            <div class="empty-subtext">Coba ubah filter pencarian Anda</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            dokumentasiTableBody.innerHTML = filteredData.map(item => {
+                const fileType = getFileType(item.fileName);
+                const fileIcon = getFileIcon(item.fileName);
+
+                const hasValidUrl = item.fileUrl && item.fileUrl !== 'undefined' && item.fileUrl.startsWith('http');
+                const isCloudinary = hasValidUrl && isCloudinaryUrl(item.fileUrl);
+                const isImage = fileType === 'image';
+
+                const previewContent = isImage && hasValidUrl ?
+                    `<img src="${getCloudinaryImageUrl(item.fileUrl)}" alt="${item.fileName}" class="image-preview"
+                          onclick="openPhotoModal('${item.fileUrl}', '${item.nama}', '${item.keterangan}')">` :
+                    '<span style="color: var(--text-muted);">-</span>';
+
+                return `
+                    <tr>
+                        <td><strong>${item.nama || '-'}</strong></td>
+                        <td>${item.keterangan || '-'}</td>
+                        <td>
+                            <span class="file-type-badge ${getFileTypeClass(item.fileName)}">
+                                ${isCloudinary ? '☁️ ' : ''}${getFileType(item.fileName).toUpperCase()}
+                            </span>
+                        </td>
+                        <td>
+                            ${item.fileName && hasValidUrl ?
+                                `<a href="${item.fileUrl}" target="_blank" class="attachment-link ${fileType}">
+                                    <span class="file-icon">${fileIcon}</span>
+                                    <span class="file-name">${item.fileName}</span>
+                                    ${isCloudinary ? '<span style="margin-left: 4px;">☁️</span>' : ''}
+                                </a>` :
+                                (item.fileName ?
+                                    `<span class="attachment-link ${fileType}" style="opacity: 0.6; cursor: not-allowed;">
+                                        <span class="file-icon">${fileIcon}</span>
+                                        <span class="file-name">${item.fileName} (No URL)</span>
+                                    </span>` :
+                                    '<span style="color: var(--text-muted);">-</span>'
+                                )
+                            }
+                        </td>
+                        <td>
+                            ${previewContent}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                ${hasValidUrl ?
+                                    `<a href="${item.fileUrl}" target="_blank" class="action-btn download" download="${item.fileName}">
+                                        ${fileIcon} Download
+                                    </a>` :
+                                    ''
+                                }
+                                <button class="action-btn delete" onclick="removeDokumentasi('${item.id}', '${item.fileName || ''}')">
+                                    🗑️ Hapus
+                                </button>
+                            </div>
+                        </td>
+                        <td>${item.timestamp || item.uploadTime || '-'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Filter Dokumentasi Data
+        function filterDokumentasiData() {
+            const { name, keterangan, jenisFile } = currentFilters.dokumentasi;
+
+            return allDokumentasiData.filter(item => {
+                const matchesName = !name || (item.nama && item.nama.toLowerCase().includes(name.toLowerCase()));
+                const matchesKeterangan = !keterangan || item.keterangan === keterangan;
+                const matchesJenisFile = !jenisFile || getFileType(item.fileName) === jenisFile;
+
+                return matchesName && matchesKeterangan && matchesJenisFile;
+            });
+        }
+
+        // Message function
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 16px 24px;
+                border-radius: var(--radius-lg);
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                max-width: 400px;
+                pointer-events: none;
+            `;
+
+            messageDiv.style.background = type === 'success'
+                ? 'linear-gradient(135deg, #10b981, #34d399)'
+                : 'linear-gradient(135deg, #ef4444, #f87171)';
+
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+
+            setTimeout(() => {
+                messageDiv.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => messageDiv.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize Dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+          // Initialize settings
+          let currentSettings = loadSettings();
+          applySettings(currentSettings);
+
+          // Settings panel functionality
+          const settingsPanel = document.getElementById('settingsPanel');
+          const settingsIcon = document.getElementById('settingsIcon');
+          const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+          const darkSwitch = document.getElementById('darkSwitch');
+
+          function toggleSettings() {
+            const isOpen = settingsPanel.classList.toggle('open');
+            settingsPanel.setAttribute('aria-expanded', isOpen.toString());
+            if (isOpen) {
+              settingsCloseBtn.focus();
+            }
+          }
+
+          settingsIcon.addEventListener('click', toggleSettings);
+          settingsCloseBtn.addEventListener('click', toggleSettings);
+
+          darkSwitch.addEventListener('click', function() {
+            currentSettings.dark = !currentSettings.dark;
+            applySettings(currentSettings);
+            saveSettings(currentSettings);
+          });
+
+          document.querySelectorAll('.font-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              currentSettings.fontSize = this.dataset.size;
+              applySettings(currentSettings);
+              saveSettings(currentSettings);
+            });
+          });
+
+          document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', function() {
+              currentSettings.themeColor = this.dataset.color;
+              applySettings(currentSettings);
+              saveSettings(currentSettings);
+            });
+          });
+
+          // Tab navigation
+          const tabBtns = document.querySelectorAll('.tab-btn');
+          const contentSections = document.querySelectorAll('.content-section');
+
+          tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+              const targetTab = this.dataset.tab;
+
+              tabBtns.forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+
+              contentSections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === `${targetTab}-section`) {
+                  section.classList.add('active');
+                }
+              });
+            });
+          });
+
+          // Filter functionality
+          document.getElementById('applyAbsensiFilters').addEventListener('click', function() {
+            currentFilters.absensi.name = document.getElementById('searchAbsensi').value;
+            currentFilters.absensi.status = document.getElementById('filterStatus').value;
+            currentFilters.absensi.date = document.getElementById('filterTanggal').value;
+            renderAbsensiTable();
+          });
+
+          document.getElementById('resetAbsensiFilters').addEventListener('click', function() {
+            document.getElementById('searchAbsensi').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterTanggal').value = '';
+            currentFilters.absensi = { name: '', status: '', date: '' };
+            renderAbsensiTable();
+          });
+
+          document.getElementById('applyDokumentasiFilters').addEventListener('click', function() {
+            currentFilters.dokumentasi.name = document.getElementById('searchDokumentasi').value;
+            currentFilters.dokumentasi.keterangan = document.getElementById('filterKeterangan').value;
+            currentFilters.dokumentasi.jenisFile = document.getElementById('filterJenisFile').value;
+            renderDokumentasiTable();
+          });
+
+          document.getElementById('resetDokumentasiFilters').addEventListener('click', function() {
+            document.getElementById('searchDokumentasi').value = '';
+            document.getElementById('filterKeterangan').value = '';
+            document.getElementById('filterJenisFile').value = '';
+            currentFilters.dokumentasi = { name: '', keterangan: '', jenisFile: '' };
+            renderDokumentasiTable();
+          });
+
+          // Real-time filtering
+          document.getElementById('searchAbsensi').addEventListener('input', function() {
+            currentFilters.absensi.name = this.value;
+            renderAbsensiTable();
+          });
+
+          document.getElementById('searchDokumentasi').addEventListener('input', function() {
+            currentFilters.dokumentasi.name = this.value;
+            renderDokumentasiTable();
+          });
+
+          // Modal functionality
+          document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('photoModal').style.display = 'none';
+          });
+
+          window.addEventListener('click', function(event) {
+            const modal = document.getElementById('photoModal');
+            if (event.target === modal) {
+              modal.style.display = 'none';
+            }
+          });
+
+          // Create particles
+          createParticles();
+          window.addEventListener('resize', createParticles);
+
+          // Initialize data loading
+          loadAbsensiData();
+          loadDokumentasiData();
+
+          // Mobile optimizations
+          initMobileOptimizations();
+        });
+
+        // Mobile optimizations
+        function initMobileOptimizations() {
+          // Better touch handling
+          const tables = document.querySelectorAll('.data-table');
+          tables.forEach(table => {
+            table.addEventListener('touchstart', function() {
+              this.style.cursor = 'pointer';
+            });
+          });
+
+          // Prevent zoom on double-tap
+          const buttons = document.querySelectorAll('button, .action-btn, .back-link');
+          buttons.forEach(btn => {
+            btn.addEventListener('touchstart', function(e) {
+              if (e.touches.length > 1) {
+                e.preventDefault();
+              }
+            }, { passive: false });
+          });
+
+          // Add mobile class for specific styling
+          const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+          if (isMobile) {
+            document.body.classList.add('mobile-optimized');
+          }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+          if (e.ctrlKey && e.altKey && e.key === 's') {
+            e.preventDefault();
+            const settingsPanel = document.getElementById('settingsPanel');
+            const isOpen = settingsPanel.classList.toggle('open');
+            settingsPanel.setAttribute('aria-expanded', isOpen.toString());
+          }
+        });
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', function() {
+          setTimeout(createParticles, 300);
+        });
+
+        // Better resize handling
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function() {
+            createParticles();
+          }, 250);
+        });
+
+        // Make functions globally available
+        window.removeDokumentasi = removeDokumentasi;
+        window.removeAbsensi = removeAbsensi;
+        window.openPhotoModal = openPhotoModal;
+        window.showMessage = showMessage;
+    </script>
+</body>
+</html>
