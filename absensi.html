@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Digital | PKL Nation</title>
+    <style>
+/* =========================================================================
+   CSS Variables - Premium Design System
+   ========================================================================= */
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #8b5cf6;
+  --accent-teal: #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+
+  /* Light Theme - Luxury Gradients */
+  --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-secondary: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+  --bg-card: rgba(255, 255, 255, 0.98);
+  --bg-glass: rgba(255, 255, 255, 0.25);
+  --bg-glass-dark: rgba(255, 255, 255, 0.1);
+
+  /* Text Colors */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Effects */
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --shadow-large: 0 32px 64px rgba(0, 0, 0, 0.16);
+  --shadow-extra: 0 48px 96px rgba(0, 0, 0, 0.20);
+
+  --border-light: rgba(255, 255, 255, 0.2);
+  --border-glass: rgba(255, 255, 255, 0.15);
+
+  /* Layout */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+
+  --max-width: 1200px;
+  --font-size-base: 16px;
+}
+
+/* Premium Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  --bg-secondary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --bg-card: rgba(30, 30, 46, 0.98);
+  --bg-glass: rgba(255, 255, 255, 0.1);
+  --bg-glass-dark: rgba(255, 255, 255, 0.05);
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-inverse: #ffffff;
+
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.32);
+  --shadow-medium: 0 20px 40px rgba(0, 0, 0, 0.24);
+  --shadow-large: 0 32px 64px rgba(0, 0, 0, 0.28);
+  --shadow-extra: 0 48px 96px rgba(0, 0, 0, 0.32);
+}
+
+/* Theme Variations */
+[data-color="teal"] {
+  --primary: #0d9488;
+  --primary-dark: #0f766e;
+  --primary-light: #14b8a6;
+}
+
+[data-color="purple"] {
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --primary-light: #a78bfa;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Absensi Section */
+.absensi-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 120px 0 80px;
+}
+
+.absensi-container {
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.absensi-card {
+  background: var(--bg-card);
+  padding: 60px 48px;
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-large);
+  position: relative;
+  overflow: hidden;
+}
+
+.absensi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+.absensi-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.absensi-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--text-primary), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.absensi-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.absensi-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-glass);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(20px);
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  transform: translateY(-2px);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 40px;
+  border-radius: var(--radius-xl);
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 16px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.submit-btn:hover::before {
+  left: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-extra);
+  background: var(--primary-dark);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-top: 32px;
+  transition: all 0.3s ease;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.back-link:hover {
+  transform: translateX(-4px);
+  color: var(--primary-light);
+}
+
+/* Animated Background */
+.background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: floatShape 20s infinite linear;
+}
+
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #ff6b6b, #ffa726);
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #4ecdc4, #44a08d);
+  top: 60%;
+  right: 10%;
+  animation-delay: -7s;
+}
+
+.shape-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #45b7d1, #96c93d);
+  bottom: 20%;
+  left: 20%;
+  animation-delay: -14s;
+}
+
+@keyframes floatShape {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(100px, -50px) rotate(90deg); }
+  50% { transform: translate(-50px, 100px) rotate(180deg); }
+  75% { transform: translate(-100px, -50px) rotate(270deg); }
+}
+
+/* Settings Panel */
+#settingsPanel {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 1000;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-extra);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(40px);
+  font-size: 1.5rem;
+}
+
+#settingsPanel:hover {
+  transform: scale(1.15) rotate(15deg);
+}
+
+#settingsPanel.open {
+  width: 420px;
+  height: auto;
+  padding: 40px;
+  border-radius: var(--radius-xl);
+  transform: none;
+}
+
+#settingsPanel.open:hover {
+  transform: none;
+}
+
+#settingsPanel .panel-inner {
+  display: none;
+  width: 100%;
+}
+
+#settingsPanel.open .panel-inner {
+  display: block;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.setting-label {
+  flex: 1;
+}
+
+.setting-label strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.setting-label span {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.switch {
+  width: 68px;
+  height: 36px;
+  background: var(--border-glass);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-glass);
+}
+
+.switch.on {
+  background: var(--primary);
+}
+
+.switch .knob {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-soft);
+}
+
+.switch.on .knob {
+  left: 34px;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 16px;
+}
+
+.color-swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-medium);
+}
+
+.color-swatch.active {
+  border-color: var(--text-primary);
+  transform: scale(1.2);
+}
+
+.color-swatch:hover {
+  transform: scale(1.15);
+}
+
+.font-sizes {
+  display: flex;
+  gap: 12px;
+  background: var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 8px;
+  border: 1px solid var(--border-glass);
+}
+
+.font-btn {
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex: 1;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.font-btn.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Particles System */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary), transparent);
+  opacity: 0.6;
+  animation: floatParticle 15s infinite linear;
+  filter: blur(1px);
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Message Animations */
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .absensi-card {
+    padding: 40px 24px;
+    margin: 0 20px;
+  }
+
+  .absensi-title {
+    font-size: 2.5rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 16px 20px;
+  }
+
+  #settingsPanel {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  #settingsPanel.open {
+    width: 90vw;
+    max-width: 350px;
+  }
+}
+
+/* =========================================================================
+   Absensi Mobile Responsive Styles
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  .absensi-section {
+    padding: 100px 0 40px;
+  }
+
+  .absensi-container {
+    padding: 0 16px;
+  }
+
+  .absensi-header {
+    margin-bottom: 40px;
+  }
+
+  .absensi-title {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+
+  .absensi-subtitle {
+    font-size: 1.125rem;
+    padding: 0 10px;
+  }
+
+  /* Form Grid - Stack on mobile */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .form-container {
+    padding: 24px;
+    margin-bottom: 30px;
+  }
+
+  .form-preview {
+    padding: 24px;
+    text-align: center;
+  }
+
+  /* Form Elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  input, select, textarea {
+    padding: 14px 16px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  /* Stats Cards */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 30px 0;
+  }
+
+  .stat-card {
+    padding: 20px 16px;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  /* Submit Button */
+  .submit-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1.125rem;
+  }
+
+  /* Real-time Indicator */
+  .realtime-indicator {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+
+  /* Back Link */
+  .back-link {
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    margin-top: 30px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .absensi-title {
+    font-size: 2rem;
+  }
+
+  .absensi-subtitle {
+    font-size: 1rem;
+  }
+
+  .form-container {
+    padding: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  /* Smaller form elements for very small screens */
+  input, select, textarea {
+    padding: 12px 14px;
+  }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .absensi-container {
+    padding: 0 20px;
+  }
+
+  .form-grid {
+    gap: 30px;
+  }
+
+  .form-container {
+    padding: 32px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Landscape Mode for Absensi */
+@media (max-width: 768px) and (orientation: landscape) {
+  .absensi-section {
+    padding: 80px 0 30px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* Touch Device Optimizations for Forms */
+@media (hover: none) and (pointer: coarse) {
+  .submit-btn, .back-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Better file input for touch */
+  input[type="file"] {
+    font-size: 16px; /* Prevent zoom */
+  }
+}
+
+/* Focus states for better accessibility on mobile */
+@media (max-width: 768px) {
+  input:focus, select:focus, textarea:focus {
+    transform: scale(1.02);
+    border-color: var(--primary);
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+
+    <!-- Particles Container -->
+    <div id="particles" aria-hidden="true"></div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" role="dialog" aria-label="Settings" aria-expanded="false">
+      <div id="settingsIcon" aria-hidden="true">⚙️</div>
+      <div class="panel-inner">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+          <h3 style="margin: 0; color: var(--text-primary); font-size: 1.5rem;">Theme Settings</h3>
+          <button id="settingsCloseBtn" aria-label="Close settings" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); padding: 8px;">✕</button>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <strong>Dark Mode</strong>
+            <span>Switch between light and dark themes</span>
+          </div>
+          <div id="darkSwitch" class="switch" role="switch" aria-checked="false" tabindex="0">
+            <div class="knob"></div>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <strong>Font Size</strong>
+            <span>Adjust text size for readability</span>
+          </div>
+          <div class="font-sizes" role="tablist">
+            <button class="font-btn active" data-size="small" role="tab" aria-selected="true">A-</button>
+            <button class="font-btn" data-size="medium" role="tab" aria-selected="false">A</button>
+            <button class="font-btn" data-size="large" role="tab" aria-selected="false">A+</button>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <strong>Theme Color</strong>
+            <span>Choose your accent color</span>
+          </div>
+          <div class="color-swatches" role="listbox">
+            <button class="color-swatch active" data-color="blue" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);" aria-label="Blue theme" role="option" aria-selected="true"></button>
+            <button class="color-swatch" data-color="teal" style="background: linear-gradient(135deg, #0d9488, #14b8a6);" aria-label="Teal theme" role="option" aria-selected="false"></button>
+            <button class="color-swatch" data-color="purple" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);" aria-label="Purple theme" role="option" aria-selected="false"></button>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-glass);">
+          <small style="color: var(--text-muted); font-size: 0.875rem;">Settings are saved automatically in your browser</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="absensi-section">
+      <div class="container absensi-container">
+        <div class="absensi-card">
+          <div class="absensi-header">
+            <h1 class="absensi-title">📝 Absensi Digital</h1>
+            <p class="absensi-subtitle">
+              Isi form kehadiran harian Anda. Data tersimpan otomatis di Firebase.
+            </p>
+          </div>
+
+          <!-- Absensi Form -->
+          <form class="absensi-form" id="absensiForm">
+            <div class="form-group">
+              <label class="form-label">
+                <span>👤</span>
+                Nama Lengkap
+              </label>
+              <input type="text" name="nama" required class="form-input" placeholder="Masukkan nama lengkap Anda">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>🏫</span>
+                Asal Sekolah
+              </label>
+              <input type="text" name="sekolah" required class="form-input" placeholder="Contoh: SMK BOASH">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>🎓</span>
+                Kelas / Jurusan
+              </label>
+              <input type="text" name="kelas" required class="form-input" placeholder="Contoh: XII TKJ 1">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>📅</span>
+                Tanggal
+              </label>
+              <input type="date" name="tanggal" required class="form-input" id="tanggalInput">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>🎯</span>
+                Status Kehadiran
+              </label>
+              <select name="status" required class="form-select">
+                <option value="" disabled selected>Pilih status kehadiran</option>
+                <option value="Hadir">Hadir</option>
+                <option value="Izin">Izin</option>
+                <option value="Sakit">Sakit</option>
+                <option value="Alpha">Alpha</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span>📝</span>
+                Catatan (Opsional)
+              </label>
+              <textarea name="catatan" rows="4" class="form-textarea" placeholder="Tulis catatan tambahan jika ada..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <span>🚀</span>
+              Kirim Absensi
+            </button>
+          </form>
+
+          <!-- Back to -->
+          <a href="index.html" class="back-link">
+            <span>←</span>
+            Kembali ke Beranda
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+    <script>
+    // Firebase Real-time Integration - Simplified Version
+    document.addEventListener('DOMContentLoaded', function() {
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZ2Nnh3k8Y4qwOwS5FBOuVS17puke1n7A",
+            authDomain: "pkl-nation.firebaseapp.com",
+            databaseURL: "https://pkl-nation-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "pkl-nation",
+            storageBucket: "pkl-nation.appspot.com",
+            messagingSenderId: "138116516043",
+            appId: "1:138116516043:web:b7c90716e0f2bfdfef34e"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const form = document.getElementById('absensiForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const tanggalInput = document.getElementById('tanggalInput');
+
+        // Set today's date as default
+        tanggalInput.value = new Date().toISOString().split('T')[0];
+
+        // Form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '💾 Menyimpan...';
+            submitBtn.disabled = true;
+
+            try {
+                // Save data to Firebase
+                const absensiId = 'absensi_' + Date.now();
+                const formData = {
+                    nama: form.querySelector('input[name="nama"]').value,
+                    sekolah: form.querySelector('input[name="sekolah"]').value,
+                    kelas: form.querySelector('input[name="kelas"]').value,
+                    tanggal: form.querySelector('input[name="tanggal"]').value,
+                    status: form.querySelector('select[name="status"]').value,
+                    catatan: form.querySelector('textarea[name="catatan"]').value,
+                    timestamp: new Date().toLocaleString('id-ID'),
+                    created_at: Date.now()
+                };
+
+                // Save to Firebase
+                await database.ref('absensi/' + absensiId).set(formData);
+
+                // Show success message
+                showMessage('✅ Data absensi berhasil disimpan!', 'success');
+
+                // Reset form
+                form.reset();
+                tanggalInput.value = new Date().toISOString().split('T')[0];
+
+            } catch (error) {
+                showMessage('❌ Gagal menyimpan: ' + error.message, 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 16px 24px;
+                border-radius: var(--radius-lg);
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                max-width: 400px;
+            `;
+
+            messageDiv.style.background = type === 'success'
+                ? 'linear-gradient(135deg, #10b981, #34d399)'
+                : 'linear-gradient(135deg, #ef4444, #f87171)';
+
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+
+            setTimeout(() => {
+                messageDiv.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => messageDiv.remove(), 300);
+            }, 3000);
+        }
+    });
+
+    // Settings Management
+    const SETTINGS_KEY = 'pkl_nation_premium_settings';
+    const defaultSettings = {
+      dark: false,
+      fontSize: 'medium',
+      themeColor: 'blue'
+    };
+
+    function loadSettings() {
+      try {
+        const saved = localStorage.getItem(SETTINGS_KEY);
+        return saved ? { ...defaultSettings, ...JSON.parse(saved) } : { ...defaultSettings };
+      } catch {
+        return { ...defaultSettings };
+      }
+    }
+
+    function saveSettings(settings) {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    }
+
+    function applySettings(settings) {
+      document.documentElement.setAttribute('data-theme', settings.dark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-color', settings.themeColor);
+      document.documentElement.style.fontSize = {
+        small: '14px',
+        medium: '16px',
+        large: '18px'
+      }[settings.fontSize] || '16px';
+      updateSettingsUI(settings);
+      createParticles();
+    }
+
+    function updateSettingsUI(settings) {
+      const darkSwitch = document.getElementById('darkSwitch');
+      if (darkSwitch) {
+        darkSwitch.classList.toggle('on', settings.dark);
+        darkSwitch.setAttribute('aria-checked', settings.dark.toString());
+      }
+      document.querySelectorAll('.font-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.size === settings.fontSize);
+      });
+      document.querySelectorAll('.color-swatch').forEach(swatch => {
+        swatch.classList.toggle('active', swatch.dataset.color === settings.themeColor);
+      });
+    }
+
+    // Settings Panel
+    const settingsPanel = document.getElementById('settingsPanel');
+    const settingsIcon = document.getElementById('settingsIcon');
+    const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+
+    function toggleSettings() {
+      const isOpen = settingsPanel.classList.toggle('open');
+      settingsPanel.setAttribute('aria-expanded', isOpen.toString());
+      if (isOpen) settingsCloseBtn.focus();
+    }
+
+    settingsIcon.addEventListener('click', toggleSettings);
+    settingsCloseBtn.addEventListener('click', toggleSettings);
+
+    document.getElementById('darkSwitch').addEventListener('click', function() {
+      currentSettings.dark = !currentSettings.dark;
+      applySettings(currentSettings);
+      saveSettings(currentSettings);
+    });
+
+    document.querySelectorAll('.font-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        currentSettings.fontSize = this.dataset.size;
+        applySettings(currentSettings);
+        saveSettings(currentSettings);
+      });
+    });
+
+    document.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('click', function() {
+        currentSettings.themeColor = this.dataset.color;
+        applySettings(currentSettings);
+        saveSettings(currentSettings);
+      });
+    });
+
+    // Particles System
+    function createParticles() {
+      const container = document.getElementById('particles');
+      container.innerHTML = '';
+      const particleCount = Math.min(25, Math.floor(window.innerWidth / 40));
+      const isDark = currentSettings.dark;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 25 + 5;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 20;
+        const duration = Math.random() * 10 + 20;
+
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${left}vw`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+
+        const hue = currentSettings.themeColor === 'blue' ? 240 :
+                    currentSettings.themeColor === 'teal' ? 180 : 270;
+        const saturation = isDark ? '40%' : '60%';
+        const lightness = isDark ? '50%' : '60%';
+        particle.style.background = `radial-gradient(circle, hsl(${hue}, ${saturation}, ${lightness}), transparent)`;
+
+        container.appendChild(particle);
+      }
+    }
+
+    // Initialize
+    let currentSettings = loadSettings();
+
+    document.addEventListener('DOMContentLoaded', function() {
+      applySettings(currentSettings);
+      createParticles();
+
+      window.addEventListener('resize', createParticles);
+    });
+
+    // Keyboard shortcut
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.altKey && e.key === 's') {
+        e.preventDefault();
+        toggleSettings();
+      }
+    });
+    </script>
+</body>
+  </html>
